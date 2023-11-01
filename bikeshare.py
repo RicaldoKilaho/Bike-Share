@@ -3,17 +3,16 @@ import pandas as pd
 import numpy as np
 
 #Creating a dictionary containing the data sources for the three cities
-CITY_DATA = { 'chicago': 'data/chicago.csv', 'Chicago': 'data/chicago.csv',
-             'New York City': 'data/new_york_city.csv', 'New york city': 'data/new_york_city.csv',
-              'new york city': 'data/new_york_city.csv', 'washington': 'data/washington.csv',
-             'Washington': 'data/washington.csv' }
+CITY_DATA = { 'chicago': 'D:\\Bike-Share\\chicago.csv',
+    'new york city': 'D:\\Bike-Share\\new_york_city.csv',
+    'washington': 'D:\\Bike-Share\\washington.csv' }
 
 #Function to figure out the filtering requirements of the user
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
 
-    Args:,
+    Args:
         None.
 
     Returns:
@@ -96,7 +95,7 @@ def load_data(city, month, day):
 
     #Extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
-    df['day_of_week'] = df['Start Time'].dt.weekday_name
+    df['day_of_week'] = df['Start Time'].dt.day_name
 
     #Filter by month if applicable
     if month != 'all':

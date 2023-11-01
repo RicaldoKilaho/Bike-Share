@@ -13,7 +13,7 @@ def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
 
-    Args:
+    Args:,
         None.
 
     Returns:

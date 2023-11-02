@@ -91,16 +91,21 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
+    # Set display to view all columns
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.width', None)
+    
     # Loading data for city 
     print("\nLoading Data...")
     df = pd.read_csv(CITY_DATA[city])
 
-    # convert the Start Time column to datetime
+    # convert the Start Time and End Time column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
+    df['End Time'] = pd.to_datetime(df['End Time'])
 
     # Grab month, day of week and hour to create new columns
     df['month'] = df['Start Time'].dt.month
-    df['day_of_the_week'] = df['Start Time'].dt.day_name
+    df['day_of_the_week'] = df['Start Time'].dt.day_name()
     df['hour'] = df['Start Time'].dt.hour
 
     # Filtering by month if applicable
@@ -131,16 +136,17 @@ def time_stats(df):
         none.
     """
 
-    print('\nCalculating The Most Frequent Times of Travel...\n')
+    print('\nLet us look at some summary statistics!\n\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
     # display the most common month using mode method
     if not df['month'].empty:
         most_common_month = df['month'].mode().iloc[0]
-        print(f"The most common month is (1 = January,...,6 = June): {most_common_month}")
+        month_names = ['January', 'February', 'March', 'April', 'May', 'June']
+        most_common_month_name = month_names[most_common_month - 1]
+        print(f"The most common month is {most_common_month_name}")
     else:
         print("No mode found for the 'month' column.")
-
 
     # display the most common day of week
     if not df['day_of_the_week'].empty:
@@ -149,6 +155,7 @@ def time_stats(df):
     else:
         print("No mode found for the 'day_of_the_week' column.")
 
+    
 
     # display the most common start hour
     # grab hour from the Start Time column to create a new column
@@ -157,6 +164,7 @@ def time_stats(df):
         print(f"The most common hour is {most_common_hour}")
     else:
         print("No mode found for the 'hour' column.")
+    
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -241,8 +249,8 @@ def user_stats(df):
     try:
         earliest = int(df['Birth Year'].min())
         recent = int(df['Birth Year'].max())
-        common_year = int(df['Birth Year'].mode())
-        print("\nThe earliest year of birth is {earliest}.\nThe most recent year of birth is {recent}.\nThe most common year of birth is {common_year}")
+        common_year = int(df['Birth Year'].mode().iloc[0])
+        print(f"\nThe earliest year of birth is {earliest}.\nThe most recent year of birth is {recent}.\nThe most common year of birth is {common_year}")
     except:
         print("\nThe 'Birth Year' column does not exist in this file")
 
@@ -303,4 +311,5 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
 

@@ -2,7 +2,7 @@ Bike Share Data Analysis
 Project Overview
 This project analyzes bikeshare data from three major cities: Chicago, New York City, and Washington, D.C.. The goal is to explore various aspects of the bike-sharing systems in these cities, including the most popular times for bike rides, the most popular stations, and trip durations. The analysis is done through an interactive Python script, allowing users to input their own preferences and view customized results.
 
-Table of Contents
+Table of Contents:
 Installation
 Usage
 Project Details
